@@ -5,4 +5,4 @@ pip install PyQT5 PySide2 Pillow
 run file :)
 
 Не поленитесь зайти в дискорд - https://discord.gg/n89PDURbTg
-Там есть Релиз готового Приложения
+там есть РЕЛИЗ готового Приложения

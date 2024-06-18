@@ -1,0 +1,4 @@
+setuptools
+wheel
+Pillow==10.3.0
+PySide2==5.15.2.1

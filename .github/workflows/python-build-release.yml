@@ -9,9 +9,7 @@ on:
 
 jobs:
   build:
-
     runs-on: windows-latest
-
     steps:
     - uses: actions/checkout@v4
     - name: Set up Python 3.10
@@ -25,10 +23,34 @@ jobs:
         pip install -r requirements.txt
     - name: Build
       run: |
-        pyinstaller -F ARTv5.py -w
-        
+        pyinstaller -F ARTv5.py -w     
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v4.3.3
       with:  
           name: ARTv5
           path: .\dist\ARTv5.exe
+
+  publish-release:
+    runs-on: windows-latest
+    steps:
+    - name: Download artifact
+    - uses: actions/download-artifact@v4
+      with:  
+          name: ARTv5
+    - name: Create release
+      id: create-release
+    - uses: actions/create-release@v1
+      env: 
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      with:
+          tag_name: v5
+          release_name: v5
+    - name: Upload Release Asset
+    - uses: actions/upload-release-asset@v1
+      env: 
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      with:
+          upload_url: ${{steps.create-release.outputs.upload_url}}
+          asset_path: .\ARTv5.exe
+          asset_name: ARTv5.exe
+          

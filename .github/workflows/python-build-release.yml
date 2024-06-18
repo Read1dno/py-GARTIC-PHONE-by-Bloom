@@ -40,4 +40,5 @@ jobs:
           upload_url: ${{steps.create-release.outputs.upload_url}}
           asset_path: .\dist\ARTv5.exe
           asset_name: ARTv5.exe
+          asset_content_type: application/octet-stream
           

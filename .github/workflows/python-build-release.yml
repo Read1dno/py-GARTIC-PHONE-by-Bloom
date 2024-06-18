@@ -33,20 +33,19 @@ jobs:
   publish-release:
     runs-on: windows-latest
     steps:
-    - name: Download artifact
     - uses: actions/download-artifact@v4
       with:  
           name: ARTv5
     - name: Create release
       id: create-release
-    - uses: actions/create-release@v1
+      uses: actions/create-release@v1
       env: 
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
       with:
           tag_name: v5
           release_name: v5
     - name: Upload Release Asset
-    - uses: actions/upload-release-asset@v1
+      uses: actions/upload-release-asset@v1
       env: 
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
       with:

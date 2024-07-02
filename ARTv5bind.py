@@ -65,13 +65,25 @@ class TransparentImageWindow(QWidget):
         self.setWindowFlags(self.windowFlags() & ~Qt.WindowTransparentForInput)
         self.show()
 
+    def keyPressEvent(self, event):
+        virtual_key = event.nativeVirtualKey()
+        if virtual_key == Qt.Key_T or virtual_key == Qt.Key_E:  # Добавлено для работы с английской и русской раскладками
+            self.setNonInteractive()
+        elif virtual_key == Qt.Key_Y or virtual_key == Qt.Key_N:  # Добавлено для работы с английской и русской раскладками
+            self.setInteractive()
+
+    def keyReleaseEvent(self, event):
+        virtual_key = event.nativeVirtualKey()
+        if virtual_key == Qt.Key_T or virtual_key == Qt.Key_E or virtual_key == Qt.Key_Y or virtual_key == Qt.Key_N:  # Добавлено для работы с английской и русской раскладками
+            event.accept()
+            
 class SettingsWindow(QWidget):
     def __init__(self):
         super().__init__()
         self.initUI()
-        
+
     def initUI(self):
-        self.label = QLabel('Выберите изображение:', self)
+        self.label = QLabel('Выберите изображение и настройте параметры:', self)
 
         self.button = QPushButton('Выбрать изображение', self)
         self.button.clicked.connect(self.loadImage)
@@ -81,13 +93,15 @@ class SettingsWindow(QWidget):
         self.opacity_input.setEnabled(False)
         self.opacity_input.returnPressed.connect(self.changeOpacity)
 
-        self.fix_button = QPushButton('Закрепить изображение', self)
+        self.fix_button = QPushButton('Закрепить изображение (T)', self)  
         self.fix_button.clicked.connect(self.fixImage)
         self.fix_button.setEnabled(False)
 
-        self.unfix_button = QPushButton('Открепить изображение', self)
+        self.unfix_button = QPushButton('Открепить изображение (Y)', self)  
         self.unfix_button.clicked.connect(self.unfixImage)
         self.unfix_button.setEnabled(False)
+
+        self.description_label = QLabel('Колесико мышки - менять размер\nЗажатой левой кнопкой мышки - перемещение\nT - закрепить картинку\nY - открепить картинку', self)  # Добавлено описание
 
         layout = QVBoxLayout()
         layout.addWidget(self.label)
@@ -95,6 +109,7 @@ class SettingsWindow(QWidget):
         layout.addWidget(self.opacity_input)
         layout.addWidget(self.fix_button)
         layout.addWidget(self.unfix_button)
+        layout.addWidget(self.description_label)  # Добавлено описание
         self.setLayout(layout)
 
         self.image_window = None

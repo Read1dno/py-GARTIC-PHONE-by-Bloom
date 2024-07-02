@@ -1,6 +1,6 @@
 ImageOverlayApp v6 bind for Gartic Phone
 
-#To install:
+# To install:
 
 Python 3.10+
 ```sh
@@ -11,18 +11,18 @@ or
 pip install -r requirements.txt
 ```
 
-#Launch
+# Launch
 ```sh
 python main.py
 ```
-#Using
+# Using
 - Select an image.
 - Use the mouse wheel to resize the image.
 - Move the image by holding down the left mouse button.
 - Press 'T` to pin the image.
 - Press 'Y` to unpin the image.
 
-#Compiling a Python file to an EXE
+# Compiling a Python file to an EXE
 
 ```sh
 pip install pyinstaller
@@ -39,7 +39,7 @@ pyinstaller --onefile --windowed --icon=app.png main.py
 `--icon=app.png` adds an icon for your EXE file.
 After successful execution, a file will appear in the dist directory main.exe .
 
-#LICENSE
+# LICENSE
 This project is licensed under the terms of the MIT License - see the `LICENSE` file for details.
 
 Go to the Discord channel - https://discord.gg/n89PDURbTg

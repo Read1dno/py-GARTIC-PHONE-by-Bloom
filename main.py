@@ -1,7 +1,7 @@
 import sys
-from PySide2.QtWidgets import QApplication, QLabel, QFileDialog, QLineEdit, QVBoxLayout, QPushButton, QWidget
-from PySide2.QtGui import QPixmap, QImage, QColor, QIcon
-from PySide2.QtCore import Qt, QPoint
+from PySide6.QtWidgets import QApplication, QLabel, QFileDialog, QLineEdit, QVBoxLayout, QPushButton, QWidget
+from PySide6.QtGui import QPixmap, QImage, QColor, QIcon
+from PySide6.QtCore import Qt, QPoint
 
 class TransparentImageWindow(QWidget):
     def __init__(self, pixmap):
@@ -66,17 +66,11 @@ class TransparentImageWindow(QWidget):
         self.show()
 
     def keyPressEvent(self, event):
-        virtual_key = event.nativeVirtualKey()
-        if virtual_key == Qt.Key_T or virtual_key == Qt.Key_E:  # Добавлено для работы с английской и русской раскладками
+        if event.key() == Qt.Key_T or event.key() == Qt.Key_E:
             self.setNonInteractive()
-        elif virtual_key == Qt.Key_Y or virtual_key == Qt.Key_N:  # Добавлено для работы с английской и русской раскладками
+        elif event.key() == Qt.Key_Y or event.key() == Qt.Key_N:
             self.setInteractive()
 
-    def keyReleaseEvent(self, event):
-        virtual_key = event.nativeVirtualKey()
-        if virtual_key == Qt.Key_T or virtual_key == Qt.Key_E or virtual_key == Qt.Key_Y or virtual_key == Qt.Key_N:  # Добавлено для работы с английской и русской раскладками
-            event.accept()
-            
 class SettingsWindow(QWidget):
     def __init__(self):
         super().__init__()
@@ -101,7 +95,7 @@ class SettingsWindow(QWidget):
         self.unfix_button.clicked.connect(self.unfixImage)
         self.unfix_button.setEnabled(False)
 
-        self.description_label = QLabel('Колесико мышки - менять размер\nЗажатой левой кнопкой мышки - перемещение\nT - закрепить картинку\nY - открепить картинку', self)  # Добавлено описание
+        self.description_label = QLabel('Колесико мышки - менять размер\nЗажатой левой кнопкой мышки - перемещение\nT - закрепить картинку\nY - открепить картинку', self)
 
         layout = QVBoxLayout()
         layout.addWidget(self.label)
@@ -109,7 +103,7 @@ class SettingsWindow(QWidget):
         layout.addWidget(self.opacity_input)
         layout.addWidget(self.fix_button)
         layout.addWidget(self.unfix_button)
-        layout.addWidget(self.description_label)  # Добавлено описание
+        layout.addWidget(self.description_label)
         self.setLayout(layout)
 
         self.image_window = None
@@ -126,7 +120,7 @@ class SettingsWindow(QWidget):
                 self.image_window.label.resize(pixmap.size())
                 self.image_window.resize(pixmap.size())
 
-            self.image_window.updateOpacity(35)  # Установить начальную прозрачность 35%
+            self.image_window.updateOpacity(35)
             self.image_window.show()
             self.opacity_input.setEnabled(True)
             self.fix_button.setEnabled(True)
@@ -158,11 +152,8 @@ class SettingsWindow(QWidget):
 def main():
     app = QApplication(sys.argv)
     
-    # Установить имя и ярлык приложения
     app.setApplicationName("ImageOverlayApp")
     app.setApplicationDisplayName("Image Overlay Application")
-    
-    # Установить иконку приложения (замените 'icon.png' на путь к вашей иконке)
     app.setWindowIcon(QIcon('icon.png'))
 
     settings_window = SettingsWindow()
@@ -180,7 +171,7 @@ def main():
     app.aboutToQuit.connect(quitApp)
     app.keyPressEvent = keyPressEvent
 
-    app.exec_()
+    app.exec()
 
 if __name__ == '__main__':
     main()

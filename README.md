@@ -39,5 +39,8 @@ pyinstaller --onefile --windowed --icon=app.png main.py
 `--icon=app.png` adds an icon for your EXE file.
 After successful execution, a file will appear in the dist directory main.exe .
 
+#LICENSE
+This project is licensed under the terms of the MIT License - see the `LICENSE` file for details.
+
 Go to the Discord channel - https://discord.gg/n89PDURbTg
 :D
